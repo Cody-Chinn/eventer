@@ -1,21 +1,45 @@
-import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import CalendarScreen from './screens/CalendarScreen';
+import AddEventScreen from './screens/AddEventScreen';
+import EventDetails from './screens/EventDetailsScreen';
+import { AppRegistry } from 'react-native';
+import { name as appName } from './app.json';
+import { Provider } from 'react-redux';
+import {StatusBar} from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import configureStore from './store';
+import { COLORS } from './globals'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const store = configureStore()
+const Stack = createStackNavigator();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const App = () => (
+  <NavigationContainer style={{backgroundColor: '#fff'}}>
+    <Provider store = { store }>
+      <StatusBar style="light" />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Calendar"
+          component={CalendarScreen}
+          options={{ title: 'Eventer', headerStyle: {backgroundColor: COLORS.MAIN}, headerTintColor:'white' }}
+          />
+        <Stack.Screen 
+          name="Add Event"
+          component={AddEventScreen}
+          options={({route}) => ({title: route.params.dateFilter, headerStyle: {backgroundColor: COLORS.MAIN}, headerTintColor:'white' })}
+          />
+        <Stack.Screen 
+          name="Details"
+          component={EventDetails}
+          options={({route}) => ({title: 'Details', headerStyle: {backgroundColor: COLORS.MAIN}, headerTintColor:'white' })}
+          />
+      </Stack.Navigator>
+    </Provider>
+  </NavigationContainer>
+)
+
+AppRegistry.registerComponent(appName, () => App);
+
+export default App;
