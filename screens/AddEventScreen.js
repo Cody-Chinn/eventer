@@ -211,5 +211,3 @@ const styles = StyleSheet.create({
     borderColor: '#0066CC'
   }
 });
-
-export default AddEventScreen;
