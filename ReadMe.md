@@ -10,3 +10,11 @@ app (after logging in) is the calendar. From there, you will be able to access a
 friends and talk about what's happening in one area, rather than crowding group chats with double texts or off topic conversations.
 
 This is Eventer. Social Media with a purpose.
+
+# Running the App
+
+- start the react native server with ```react-native start```
+  - to run the app on android, use ```react-native run-android```
+  - to run the app on ios, use ```react-native run-ios```
+
+- if the app breaks on dependencies, then use ```yarn``` or if that has already been run, try ```npm @react-native-community/cli doctor```
